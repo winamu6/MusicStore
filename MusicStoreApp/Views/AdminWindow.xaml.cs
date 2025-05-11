@@ -1,4 +1,5 @@
-﻿using MusicStoreApp.Core.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MusicStoreApp.Core.Models;
 using MusicStoreApp.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace MusicStoreApp.Views
         public AdminWindow()
         {
             InitializeComponent();
-            _productService = new ProductService();
+            _productService = App.ServiceProvider.GetRequiredService<ProductService>();
             LoadProducts();
         }
 

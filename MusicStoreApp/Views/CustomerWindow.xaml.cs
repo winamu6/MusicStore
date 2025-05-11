@@ -1,4 +1,5 @@
-﻿using MusicStoreApp.Core.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MusicStoreApp.Core.Models;
 using MusicStoreApp.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -18,23 +19,27 @@ namespace MusicStoreApp.Views
 {
     public partial class CustomerWindow : Window
     {
-        private readonly ProductService _productService = new();
+        private readonly ProductService _productService;
+        private readonly OrderService _orderService;
         private readonly CartService _cartService = new();
         private List<Product> _allProducts = new();
 
         public CustomerWindow()
         {
             InitializeComponent();
-            Loaded += CustomerWindow_Loaded; // вызывается после полной загрузки окна
+
+            _productService = App.ServiceProvider.GetRequiredService<ProductService>();
+            _orderService = App.ServiceProvider.GetRequiredService<OrderService>();
+
+            Loaded += CustomerWindow_Loaded;
         }
 
         private void CustomerWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadProducts();
-            ApplyFilters(); // безопасный вызов — все элементы уже инициализированы
+            ApplyFilters();
         }
 
-        // Загрузка всех товаров
         private void LoadProducts()
         {
             _allProducts = _productService.GetAllProducts();
@@ -87,7 +92,7 @@ namespace MusicStoreApp.Views
         {
             if (sender is Button button && button.Tag is int productId)
             {
-                var product = _productService.GetAllProducts().FirstOrDefault(p => p.Id == productId);
+                var product = _allProducts.FirstOrDefault(p => p.Id == productId);
                 if (product != null)
                 {
                     _cartService.AddToCart(product);
@@ -106,8 +111,6 @@ namespace MusicStoreApp.Views
             _cartService.ClearCart();
             UpdateTotalPrice();
         }
-
-        private readonly OrderService _orderService = new();
 
         private void Checkout_Click(object sender, RoutedEventArgs e)
         {
@@ -131,7 +134,6 @@ namespace MusicStoreApp.Views
             UpdateTotalPrice();
         }
 
-
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             var loginWindow = new MainWindow();
@@ -143,6 +145,5 @@ namespace MusicStoreApp.Views
         {
             ApplyFilters();
         }
-
     }
 }
