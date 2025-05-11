@@ -10,20 +10,24 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows;
 using MusicStoreApp.Core.Services;
-using MusicStoreApp.Core.Models.MusicStoreApp.Core.Models;
 using MusicStoreApp.Views;
+using Microsoft.Extensions.DependencyInjection;
+using MusicStoreApp.Core.Models;
 
 
 namespace MusicStoreApp
 {
     public partial class MainWindow : Window
     {
-        private readonly UserService _userService = new();
-        private readonly OrderService _orderService = new(); // общий OrderService
+        private readonly UserService _userService;
+        private readonly OrderService _orderService;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _userService = App.ServiceProvider.GetRequiredService<UserService>();
+            _orderService = App.ServiceProvider.GetRequiredService<OrderService>();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -34,7 +38,7 @@ namespace MusicStoreApp
             {
                 Window nextWindow = user.Role switch
                 {
-                    UserRole.Customer => new CustomerWindow(), // можно также передавать user при необходимости
+                    UserRole.Customer => new CustomerWindow(),
                     UserRole.Manager => new ManagerWindow(_orderService),
                     UserRole.Admin => new AdminWindow(),
                     _ => null
@@ -55,6 +59,7 @@ namespace MusicStoreApp
                 MessageBox.Show("Неверные имя пользователя или пароль.");
             }
         }
+
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
