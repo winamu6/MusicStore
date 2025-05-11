@@ -1,0 +1,63 @@
+﻿<Window x:Class="MusicStoreApp.Views.CustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicStoreApp.Views"
+        mc:Ignorable="d"
+        Title="CustomerWindow" Height="450" Width="850">
+    <Grid>
+        <!-- Заголовок -->
+        <TextBlock Text="Добро пожаловать, Покупатель!" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   FontSize="20" Margin="0,10,0,10"/>
+
+        <Button Content="Выйти" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Width="80" Click="Logout_Click"/>
+        
+        <!-- Поиск товаров -->
+        <TextBox x:Name="SearchBox" Width="200" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" TextChanged="SearchBox_TextChanged"/>
+
+        <!-- Фильтрация по жанрам -->
+        <ComboBox x:Name="GenreComboBox" Width="150" HorizontalAlignment="Left" Margin="270,50,0,0" VerticalAlignment="Top" SelectionChanged="FilterByGenre">
+            <ComboBoxItem Content="Все жанры" IsSelected="True"/>
+            <ComboBoxItem Content="Рок"/>
+            <ComboBoxItem Content="Поп"/>
+            <ComboBoxItem Content="Джаз"/>
+        </ComboBox>
+
+        <!-- Сортировка по цене -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="450,50,0,0">
+            <TextBlock Text="Сортировать по цене:" VerticalAlignment="Center"/>
+            <RadioButton x:Name="SortAsc" Content="По возрастанию" IsChecked="True" GroupName="SortByPrice" Margin="10,0" Checked="SortOrderChanged"/>
+            <RadioButton x:Name="SortDesc" Content="По убыванию" GroupName="SortByPrice" Checked="SortOrderChanged"/>
+        </StackPanel>
+
+        <!-- Список товаров -->
+        <ListView x:Name="ProductListView" HorizontalAlignment="Left" VerticalAlignment="Top" Width="580" Height="200" Margin="50,100,50,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Исполнитель" DisplayMemberBinding="{Binding Artist}" Width="150"/>
+                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}" Width="100"/>
+                    <GridViewColumn Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Добавить" Click="AddToCart_Click" Tag="{Binding Id}" Width="80"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Сумма корзины -->
+        <TextBlock x:Name="TotalPriceText" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" Margin="50,0,0,50">
+            Общая сумма: 0 руб.
+        </TextBlock>
+
+        <!-- Кнопки -->
+        <Button Content="Очистить корзину" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="0,0,50,50" Click="ClearCart_Click"/>
+        <Button Content="Оформить заказ" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Margin="0,0,50,20" Click="Checkout_Click"/>
+    </Grid>
+</Window>
