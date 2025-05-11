@@ -11,7 +11,7 @@ namespace MusicStoreApp.Core.Data
         public DbSet<CartItem> CartItems { get; set; }
 
         public MusicStoreDbContext(DbContextOptions<MusicStoreDbContext> options)
-            : base(options)
+        : base(options)
         {
         }
 

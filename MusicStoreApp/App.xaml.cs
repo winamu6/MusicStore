@@ -25,6 +25,8 @@ namespace MusicStoreApp
             services.AddTransient<UserService>();
             services.AddTransient<OrderService>();
             services.AddTransient<ProductService>();
+            services.AddTransient<CartService>();
+
 
             ServiceProvider = services.BuildServiceProvider();
 

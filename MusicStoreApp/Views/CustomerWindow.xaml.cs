@@ -21,7 +21,7 @@ namespace MusicStoreApp.Views
     {
         private readonly ProductService _productService;
         private readonly OrderService _orderService;
-        private readonly CartService _cartService = new();
+        private readonly CartService _cartService;
         private List<Product> _allProducts = new();
 
         public CustomerWindow()
@@ -30,6 +30,7 @@ namespace MusicStoreApp.Views
 
             _productService = App.ServiceProvider.GetRequiredService<ProductService>();
             _orderService = App.ServiceProvider.GetRequiredService<OrderService>();
+            _cartService = App.ServiceProvider.GetRequiredService<CartService>();
 
             Loaded += CustomerWindow_Loaded;
         }
