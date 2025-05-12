@@ -12,7 +12,7 @@ using System.Windows;
 using MusicStoreApp.Core.Services;
 using MusicStoreApp.Views;
 using Microsoft.Extensions.DependencyInjection;
-using MusicStoreApp.Core.Models;
+using MusicStoreApp.Core.Models.Entities;
 
 
 namespace MusicStoreApp

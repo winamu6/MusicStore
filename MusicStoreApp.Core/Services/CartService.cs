@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicStoreApp.Core.Data;
-using MusicStoreApp.Core.Models;
+using MusicStoreApp.Core.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

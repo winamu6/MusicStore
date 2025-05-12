@@ -23,9 +23,10 @@ namespace MusicStoreApp
                 options.UseSqlServer("Data Source=DESKTOP-67UPOEU;Initial Catalog=MusicStore;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 
             services.AddTransient<UserService>();
-            services.AddTransient<OrderService>();
             services.AddTransient<ProductService>();
             services.AddTransient<CartService>();
+            services.AddTransient<OrderService>();
+
 
 
             ServiceProvider = services.BuildServiceProvider();

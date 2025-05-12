@@ -1,4 +1,5 @@
-﻿using MusicStoreApp.Core.Models;
+﻿using MusicStoreApp.Core.Models.Entities;
+using MusicStoreApp.Core.Models.ViewModel;
 using MusicStoreApp.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -34,14 +35,18 @@ namespace MusicStoreApp.Views
         private void LoadOrders()
         {
             OrderListView.ItemsSource = null;
-            OrderListView.ItemsSource = _orderService.GetAllOrders();
+            
+            var orders = _orderService.GetAllOrders();
+
+            OrderListView.ItemsSource = orders;
         }
+
 
         private void ConfirmOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (OrderListView.SelectedItem is Order selectedOrder)
+            if (OrderListView.SelectedItem is OrderViewModel selectedOrder)
             {
-                if (selectedOrder.IsConfirmed)
+                if (selectedOrder.IsConfirmed == "Подтвержден")
                 {
                     MessageBox.Show("Заказ уже подтвержден.");
                     return;
@@ -59,9 +64,9 @@ namespace MusicStoreApp.Views
 
         private void CancelOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (OrderListView.SelectedItem is Order selectedOrder)
+            if (OrderListView.SelectedItem is OrderViewModel selectedOrder)
             {
-                if (selectedOrder.IsConfirmed)
+                if (selectedOrder.IsConfirmed == "Подтвержден")
                 {
                     MessageBox.Show("Невозможно отменить подтвержденный заказ.");
                     return;
@@ -77,11 +82,29 @@ namespace MusicStoreApp.Views
             }
         }
 
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             var loginWindow = new MainWindow();
             loginWindow.Show();
             this.Close();
         }
+
+        private void OrderListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OrderListView.SelectedItem is OrderViewModel selectedOrder)
+            {
+                var details = $"Заказ #{selectedOrder.Id} - Покупатель: {selectedOrder.CustomerName}, " +
+                              $"Товаров: {selectedOrder.ProductsCount}, " +
+                              $"Сумма: {selectedOrder.TotalPrice}, " +
+                              $"Статус: {selectedOrder.IsConfirmed}";
+                OrderDetailsTextBlock.Text = details;
+            }
+            else
+            {
+                OrderDetailsTextBlock.Text = "Выберите заказ для просмотра деталей";
+            }
+        }
+
     }
 }

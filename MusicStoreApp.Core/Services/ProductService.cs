@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MusicStoreApp.Core.Data;
-using MusicStoreApp.Core.Models;
+using MusicStoreApp.Core.Models.Entities;
 
 namespace MusicStoreApp.Core.Services
 {

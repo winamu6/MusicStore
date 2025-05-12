@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicStoreApp.Core.Data;
 
@@ -10,9 +11,11 @@ using MusicStoreApp.Core.Data;
 namespace MusicStoreApp.Core.Migrations
 {
     [DbContext(typeof(MusicStoreDbContext))]
-    partial class MusicStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250511233554_UpdateOrderModel")]
+    partial class UpdateOrderModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,7 +129,7 @@ namespace MusicStoreApp.Core.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProducts", (string)null);
                 });
 
             modelBuilder.Entity("MusicStoreApp.Core.Models.CartItem", b =>

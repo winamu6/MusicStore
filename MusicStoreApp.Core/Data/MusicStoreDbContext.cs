@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MusicStoreApp.Core.Models;
+using MusicStoreApp.Core.Models.Entities;
 
 namespace MusicStoreApp.Core.Data
 {
@@ -22,6 +22,14 @@ namespace MusicStoreApp.Core.Data
                 optionsBuilder.UseSqlServer("Data Source=DESKTOP-67UPOEU;Initial Catalog=MusicStore;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                        .HasMany(o => o.Products)
+                        .WithMany();
+        }
+
     }
 }
 

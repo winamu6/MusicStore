@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicStoreApp.Core.Models
+namespace MusicStoreApp.Core.Models.Entities
 {
     public class CartItem
     {

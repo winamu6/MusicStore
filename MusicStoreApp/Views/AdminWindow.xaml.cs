@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MusicStoreApp.Core.Models;
+using MusicStoreApp.Core.Models.Entities;
 using MusicStoreApp.Core.Services;
 using System;
 using System.Collections.Generic;
